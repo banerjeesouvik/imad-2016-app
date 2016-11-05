@@ -16,7 +16,7 @@ var app = express();
 app.use(morgan('combined'));
 
 function createTemplate(data){
-    var finalTemplate="<body>";
+    var finalTemplate="<html><body>";
     for(var i=0;i<data.length;i++){
         var temp=data[i];
         var title=temp.title;
@@ -25,13 +25,14 @@ function createTemplate(data){
         var body=temp.body;
         var template= 
                 `
-                 <h2> ${title} <h2>
-                 <h3> Author: ${poet} , Posted On: ${dop.toDateString()} <h3>
+                 <h2> ${title} </h2>
+                 <h3> Author: ${poet} , Posted On: ${dop.toDateString()} </h3>
                  <br>
-                 <pre>${body}<pre>
+                 <pre>${body}</pre>
                  <hr>`;
         finalTemplate=finalTemplate.concat(template);
     }
+    finalTemplate=finalTemplate.concat("</body></html>");
     return finalTemplate;
 }
 
@@ -58,7 +59,6 @@ app.get('/test-db2', function (req, res) {
           res.status(500).send(err.toString());
       }
       else{
-          //console.log(5+6);
           res.send(createTemplate(result.rows));
       }
   });
