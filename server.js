@@ -26,7 +26,7 @@ function createTemplate(data){
     var template= 
                 `<html>
                  <h2> ${title} <h2>
-                 <h3> Author: ${poet} , Posted On: ${dop} <h3>
+                 <h3> Author: ${poet} , Posted On: ${dop.toDateString()} <h3>
                  <br>
                  <pre> ${body} <pre>
                  <hr>
@@ -54,7 +54,7 @@ app.get('/test-db', function (req, res) {
 });
 
 app.get('/test-db2', function (req, res) {
-  pool.query('SELECT * FROM poems', function(err,result) {
+  pool.query('SELECT * FROM poems join', function(err,result) {
       if(err){
           res.status(500).send(err.toString());
       }
