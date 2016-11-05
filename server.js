@@ -16,7 +16,32 @@ var app = express();
 app.use(morgan('combined'));
 
 function createTemplate(data){
-    var finalTemplate="<html><body>";
+    var finalTemplate=
+                    `<!doctype html>
+                     <html>
+                     <head>
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <link href="/ui/style.css" rel="stylesheet" />
+                        <title>PoetryMela.com</title>
+                     </head>
+                     <body>
+                    	<header>
+                    	    PoetryMela
+                    	</header>
+                    	<div class="tag-line">
+                    	    Breathe-in Poetry, Breathe-out Experience.
+                    	</div>
+                        <div class="center">
+                            <ul>
+                                <li><a href="/">Home</a></li>
+                                <li><a href="#">Poems</a></li>
+                                <li><a href="#">Contact</a></li>
+                		        <li style="float:right"><a href="#">Sign In</a></li>
+                            </ul>
+                        </div>
+                        <br>
+                        <div class="container">`;
+                            
     for(var i=0;i<data.length;i++){
         var temp=data[i];
         var title=temp.title;
@@ -32,7 +57,11 @@ function createTemplate(data){
                  <hr>`;
         finalTemplate=finalTemplate.concat(template);
     }
-    finalTemplate=finalTemplate.concat("</body></html>");
+    var endpart=
+                `</div>
+                 </body>
+                 </html>`;
+    finalTemplate=finalTemplate.concat(endpart);
     return finalTemplate;
 }
 
