@@ -54,7 +54,7 @@ app.get('/test-db', function (req, res) {
 });
 
 app.get('/test-db2', function (req, res) {
-  pool.query('SELECT title,body,dop,poet_name FROM poems inner join poet where poems.poet_id=poet.poet_id', function(err,result) {
+  pool.query('SELECT title,body,dop,poet_name FROM poems inner join poet on poems.poet_id=poet.poet_id', function(err,result) {
       if(err){
           res.status(500).send(err.toString());
       }
