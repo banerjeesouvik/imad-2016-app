@@ -19,9 +19,12 @@ function createTemplate(data){
     var title=data.title;
     var poet=data.poet;
     var dop=data.dop;
+    var body=data.body;
     var template= 
                 `<h2> ${title} <h2>
                  <h3> Author: ${poet} , Posted On: ${dop} <h3>
+                 <br>
+                 <pre> ${body} <pre>
                  <hr>`
     return template;
 }
@@ -33,7 +36,7 @@ app.get('/', function (req, res) {
 var pool=new Pool(config);
 
 app.get('/test-db', function (req, res) {
-  pool.query('SELECT * FROM poem', function(err,result) {
+  pool.query('SELECT * FROM poems', function(err,result) {
       if(err){
           res.status(500).send(err.toString());
       }
