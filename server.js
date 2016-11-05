@@ -28,7 +28,7 @@ function createTemplate(data){
                  <br>
                  <pre> ${body} <pre>
                  <hr>`;
-    finalTemplate+=template;
+    finalTemplate=finalTemplate.concat(template);
     }
     return finalTemplate;
 }
