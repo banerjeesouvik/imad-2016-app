@@ -28,7 +28,7 @@ function createTemplate(data){
                  <h2> ${title} <h2>
                  <h3> Author: ${poet} , Posted On: ${dop.toDateString()} <h3>
                  <br>
-                 <pre> ${body} <pre>
+                 <pre>${body}<pre>
                  <hr>
                  </html>`;
     //finalTemplate=finalTemplate.concat(template);
