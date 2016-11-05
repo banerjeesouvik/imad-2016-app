@@ -19,10 +19,10 @@ function createTemplate(data){
     console.log(data.length);
     var finalTemplate="<body>";
     for(var i=0;i<data.lenght;i++){
-    var title=data.title;
-    var poet=data.poet;
-    var dop=data.dop;
-    var body=data.body;
+    var title=data[i].title;
+    var poet=data[i].poet;
+    var dop=data[i].dop;
+    var body=data[i].body;
     var template= 
                 `<h2> ${title} <h2>
                  <h3> Author: ${poet} , Posted On: ${dop} <h3>
