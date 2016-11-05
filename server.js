@@ -16,6 +16,7 @@ var app = express();
 app.use(morgan('combined'));
 
 function createTemplate(data){
+    console.log(data.length);
     var finalTemplate="<body>";
     for(var i=0;i<data.lenght;i++){
     var title=data.title;
