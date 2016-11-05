@@ -70,3 +70,8 @@ li a:hover {
     margin-top:20px;
     height: 200px;
 }
+
+.container {
+    padding-left:50px;
+    padding-right:50px;
+}
