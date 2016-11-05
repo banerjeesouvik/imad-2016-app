@@ -16,6 +16,8 @@ var app = express();
 app.use(morgan('combined'));
 
 function createTemplate(data){
+    var finalTemplate='';
+    for(var i=0;i<data.lenght;i++){
     var title=data.title;
     var poet=data.poet;
     var dop=data.dop;
@@ -25,8 +27,10 @@ function createTemplate(data){
                  <h3> Author: ${poet} , Posted On: ${dop} <h3>
                  <br>
                  <pre> ${body} <pre>
-                 <hr>`
-    return template;
+                 <hr>`;
+    finalTemplate+=template;
+    }
+    return finalTemplate;
 }
 
 app.get('/', function (req, res) {
@@ -41,7 +45,18 @@ app.get('/test-db', function (req, res) {
           res.status(500).send(err.toString());
       }
       else{
-          res.send(JSON.stringify(result.rows[1]));
+          res.send(JSON.stringify(result.rows));
+      }
+  });
+});
+
+app.get('/test-db2', function (req, res) {
+  pool.query('SELECT * FROM poems', function(err,result) {
+      if(err){
+          res.status(500).send(err.toString());
+      }
+      else{
+          res.send(createTemplate(result.rows));
       }
   });
 });
