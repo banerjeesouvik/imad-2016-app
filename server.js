@@ -57,8 +57,8 @@ app.get('/test-db2', function (req, res) {
           res.status(500).send(err.toString());
       }
       else{
-          console.log('data found');
-          res.send(createTemplate(result.rows));
+          console.log("data found");
+          //res.send(createTemplate(result.rows));
       }
   });
 });
