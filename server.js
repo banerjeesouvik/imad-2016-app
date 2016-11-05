@@ -16,24 +16,23 @@ var app = express();
 app.use(morgan('combined'));
 
 function createTemplate(data){
-    //console.log(data.length);
-    //var finalTemplate="<body>";
-    //for(var i=0;i<data.lenght;i++){
-    var title=data.title;
-    var poet=data.poet_name;
-    var dop=data.dop;
-    var body=data.body;
-    var template= 
-                `<html>
+    var finalTemplate="<body>";
+    for(var i=0;i<data.length;i++){
+        var temp=data[i];
+        var title=temp.title;
+        var poet=temp.poet_name;
+        var dop=temp.dop;
+        var body=temp.body;
+        var template= 
+                `
                  <h2> ${title} <h2>
                  <h3> Author: ${poet} , Posted On: ${dop.toDateString()} <h3>
                  <br>
                  <pre>${body}<pre>
-                 <hr>
-                 </html>`;
-    //finalTemplate=finalTemplate.concat(template);
-    //}
-    return template;
+                 <hr>`;
+        finalTemplate=finalTemplate.concat(template);
+    }
+    return finalTemplate;
 }
 
 app.get('/', function (req, res) {
@@ -60,7 +59,7 @@ app.get('/test-db2', function (req, res) {
       }
       else{
           //console.log(5+6);
-          res.send(createTemplate(result.rows[0]));
+          res.send(createTemplate(result.rows));
       }
   });
 });
