@@ -1,6 +1,6 @@
 body {
     background-color: lightgrey;
-    margin: 0px;
+    margin: 0;
 }
 
 header{
@@ -16,13 +16,12 @@ header{
 }
 
 footer{
-    margin-top: 465px;
+    bottom: 0;
     height: 30px;
     background: dimgrey;
     position: fixed;
     width: 100%;
     text-align: center;
-    padding: 5px;
 
 }
 
