@@ -36,7 +36,7 @@ function createTemplate(data){
                                 <li><a href="/">Home</a></li>
                                 <li><a href="#">Poems</a></li>
                                 <li><a href="#">Contact</a></li>
-                		        <li style="float:right"><a href="#">Sign In</a></li>
+                		        <li style="float:right"><a href="/signin">Sign In</a></li>
                             </ul>
                         </div>
                         <br>
