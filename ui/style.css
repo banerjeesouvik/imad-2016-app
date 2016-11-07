@@ -15,6 +15,17 @@ header{
     font-weight: bold;
 }
 
+footer{
+    margin-top: 465px;
+    height: 30px;
+    background: dimgrey;
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+
+}
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -74,4 +85,46 @@ li a:hover {
 .container {
     padding-left:50px;
     padding-right:50px;
+}
+
+.login-pane {
+    text-align: center;
+    max-width: 360px;
+    margin: auto;
+    background: yellowgreen;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.login-pane input {
+    background: #f2f2f2;
+    width: 70%;
+    margin-bottom: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+.login-pane input[type="submit"] {
+    outline: 0;
+    background: #4CAF50;
+    width: 70%;
+    border: 0;
+    padding: 15px;
+    color: white;
+}
+
+.login-pane input[type="submit"]:hover {
+  background: #43A047;
+}
+
+.warning{
+    text-align: center;
+    max-width:500px;
+    margin: auto;
+    margin-bottom:30px;
+    padding: 10px;
+    border-radius: 3px 3px 3px 3px;
+    color: #9F6000;
+    background-color: #FEEFB3;
 }
