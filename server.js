@@ -51,7 +51,7 @@ function createTemplate(data){
         var template= 
                 `
                  <h2> ${title} </h2>
-                 <h3> Author: ${poet} , Posted On: ${dop.toDateString()} </h3>
+                 <h3> Author: <a href="/poets/${poet}">${poet}</a> , Posted On: ${dop.toDateString()} </h3>
                  <br>
                  <pre>${body}</pre>
                  <hr>`;
@@ -98,6 +98,20 @@ app.get('/poems', function (req, res) {
   });
 });
 
+app.get('/poets/:poetname', function (req, res) {
+  var poetname=req.params.poetname;
+  pool.query("SELECT title,body,dop,poet_name FROM poems inner join poet on poems.poet_id=poet.poet_id where poet_name = $1 order by dop asc",[poetname], function(err,result) {
+      if(err){
+          res.status(500).send(err.toString());
+      }
+      else if(result.rows.length===0){
+          res.status(404).send('No poem found of this poet');
+      }
+      else{
+          res.send(createTemplate(result.rows));
+      }
+  });
+});
 
 app.get('/ui/style.css', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'style.css'));
