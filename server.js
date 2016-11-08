@@ -31,14 +31,14 @@ function createTemplate(data){
                     	<div class="tag-line">
                     	    Breathe-in Poetry, Breathe-out Experience.
                     	</div>
-                        <div class="center">
                             <ul>
                                 <li><a href="/">Home</a></li>
                                 <li><a href="#">Poems</a></li>
                                 <li><a href="#">Contact</a></li>
                 		        <li style="float:right"><a href="/signin">Sign In</a></li>
                             </ul>
-                        </div>
+                        <div class="content">
+                        <div class="center">
                         <br>
                         <div class="container">`;
                             
@@ -59,6 +59,8 @@ function createTemplate(data){
     }
     var endpart=
                 `</div>
+                 </div>
+                 </div>
                  </body>
                  </html>`;
     finalTemplate=finalTemplate.concat(endpart);
