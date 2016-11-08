@@ -60,7 +60,7 @@ function createTemplate(data){
     var endpart=
                 `</div>
                  </div>
-                 </div
+                 </div>
                  <footer>
                     &copy; Souvik Banerjee
                  </footer>
