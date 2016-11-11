@@ -52,7 +52,6 @@ function createTemplate(data){
                 `
                  <h2> ${title} </h2>
                  <h3> Author: <a href="/poets/${poet}">${poet}</a> , Posted On: ${dop.toDateString()} </h3>
-                 <br>
                  <pre> <div class="poems">${body}</div></pre>
                  <hr>`;
         finalTemplate=finalTemplate.concat(template);
