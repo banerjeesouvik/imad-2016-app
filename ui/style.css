@@ -137,3 +137,19 @@ li a:hover {
 .content{
     flex:1;
 }
+
+.poems{
+    border: 1px solid #d6d6d6;
+    background-color: #222930;
+    width: 80%;
+    border-radius: 10px;
+    padding: 5px;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top:20px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    overflow: auto;
+    max-height:300px;
+    color:#E9E9E9;
+}
