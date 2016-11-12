@@ -102,7 +102,7 @@ app.get('/test-db', function (req, res) {
 });
 
 app.get('/poems', function (req, res) {
-  pool.query('SELECT title,body,dop,poet_name FROM poems inner join poet on poems.poet_id=poet.poet_id order by dop asc', function(err,result) {
+  pool.query('SELECT title,body,dop,poet_name,username FROM poems inner join user_login on poems.uid=user_login.id order by dop asc', function(err,result) {
       if(err){
           res.status(500).send(err.toString());
       }
