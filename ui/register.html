@@ -5,6 +5,7 @@
         <link href="/ui/style.css" rel="stylesheet" />
 	<link rel="stylesheet" type="text/css"
           href="https://fonts.googleapis.com/css?family=Tangerine">
+	<title>PoetryMela.com</title>
     </head>
     <body>
 	<header>
@@ -27,21 +28,18 @@
 	Choose username & password and you are ready to go...
 	</div>
 	<div class="login-pane">
-		<form action="#" method="post">
-		<input type="text" placeholder="username" name="uname"><br>
-		<input type="password" placeholder="password" name="pswd"><br>
-		<input type="password" placeholder="confirm password" name="cpswd"><br>
-		<input type="submit" value="REGISTER">
-		</form>
+		<input type="text" placeholder="username" name="usrnm" id="uname" required><br>
+		<input type="password" placeholder="password" name="pswd" id="passwd" required><br>
+		<input type="password" placeholder="confirm password" name="cpswd" id="crfnpswd" required><br>
+		<input type="submit" value="REGISTER"><br>
 	Already registered? SignIn <a href="/signin">here</a>
 	</div>
 	</div>
 	</div>
 	<footer>
             &copy; Souvik Banerjee
-    </footer>
-        <script type="text/javascript" src="/ui/main.js">
-        </script>
+        </footer>
+        <script type="text/javascript" src="/ui/signup.js"></script>
     </body>
 </html>
 
