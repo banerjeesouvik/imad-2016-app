@@ -5,6 +5,7 @@
         <link href="/ui/style.css" rel="stylesheet" />
 	<link rel="stylesheet" type="text/css"
           href="https://fonts.googleapis.com/css?family=Tangerine">
+	<title>PoetryMela.com</title>
     </head>
     <body>
 	<header>
@@ -24,14 +25,12 @@
     <div class="content">
     <div class="center">
 	<div class="warning">
-	This section is only for Admin use. Only Admin can sign in.
+	Enter your username and password to signin
 	</div>
 	<div class="login-pane">
-		<form action="#" method="post">
-		<input type="text" placeholder="username" name="uname"><br>
-		<input type="password" placeholder="password" name="pswd"><br>
-		<input type="submit" value="LOGIN">
-		</form>
+		<input type="text" placeholder="username" name="usrme" id="uname" required><br>
+		<input type="password" placeholder="password" name="pswd" id="passwd" required><br>
+		<input type="submit" value="LOGIN"><br>
 	New User? SignUp <a href="/register">here</a>
 	</div>
 	</div>
@@ -39,7 +38,6 @@
 	<footer>
             &copy; Souvik Banerjee
     </footer>
-        <script type="text/javascript" src="/ui/main.js">
-        </script>
+        <script type="text/javascript" src="/ui/signin.js"></script>
     </body>
 </html>
