@@ -33,9 +33,9 @@ function createTemplate(data){
                      <html>
                      <head>
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<link rel="stylesheet" type="text/css"
+                              href="https://fonts.googleapis.com/css?family=Tangerine|Josefin+Sans">
                         <link href="/ui/style.css" rel="stylesheet" />
-                        <link rel="stylesheet" type="text/css"
-                              href="https://fonts.googleapis.com/css?family=Tangerine">
                         <title>PoetryMela.com</title>
                      </head>
                      <body>
@@ -48,9 +48,10 @@ function createTemplate(data){
                             <ul>
                                 <li><a href="/">Home</a></li>
                                 <li><a href="/poems">Poems</a></li>
+				<li><a href="/#about">About</a></li>
                                 <li><a href="#">Contact</a></li>
-                		        <li style="float:right"><a href="/register">Sign Up</a></li>
-                		        <li style="float:right"><a href="/signin">Sign In</a></li>
+                		<li style="float:right"><a href="/register">Sign Up</a></li>
+                		<li style="float:right"><a href="/signin">Sign In</a></li>
                             </ul>
                         <div class="content">
                         <div class="center">
@@ -60,14 +61,16 @@ function createTemplate(data){
     for(var i=0;i<data.length;i++){
         var temp=data[i];
         var title=temp.title;
-        var poet=temp.poet_name;
+        var poet=temp.poet;
         var dop=temp.dop;
         var body=temp.body;
+	var usr=temp.username;
         var template= 
                 `
-                 <h2> ${title} </h2>
-                 <h3> Author: <a href="/poets/${poet}">${poet}</a> , Posted On: ${dop.toDateString()} </h3>
-                 <pre> <div class="poems">${body}</div></pre>
+                 <div class="poem_title"> ${title} </div>
+                 <div class="poem_desc">&#9997; Author: <a href="/poets/${poet}">${poet}</a>, &#128197; Posted On: ${dop.toDateString()}, &#128100; Posted By: <a href='/poem/user/${usr}'>${usr}</a>
+		 </div>
+                 <pre><div class="poems">${body}</div></pre>
                  <hr>`;
         finalTemplate=finalTemplate.concat(template);
     }
@@ -103,7 +106,6 @@ function createProfileTemplate(data){
 			<div class="tag-line">
 			    Breathe-in Poetry, Breathe-out Experience.
 			</div>
-			<div class="center">
 			    <ul>
 				<li><a href="/profile/mypoem">My Poems</a></li>
 				<li><a href="/profile/allpoem">All Poems</a></li>
@@ -113,7 +115,6 @@ function createProfileTemplate(data){
 			           <a href="/profile/logout">Logout</a>
 			        </div></li>
 			    </ul>
-			</div>
 			<br>
 			<div class="content">
 			<div class="center bold">
@@ -144,7 +145,7 @@ function mypoemTemplate(data,user){
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<link href="/ui/style.css" rel="stylesheet" />
 			<link rel="stylesheet" type="text/css"
-			  href="https://fonts.googleapis.com/css?family=Tangerine">
+			  href="https://fonts.googleapis.com/css?family=Tangerine|Josefin+Sans">
 		    </head>
 		    <body>
 			<header>
@@ -153,7 +154,6 @@ function mypoemTemplate(data,user){
 			<div class="tag-line">
 			    Breathe-in Poetry, Breathe-out Experience.
 			</div>
-			<div class="center">
 			    <ul>
 				<li><a href="/profile/mypoem">My Poems</a></li>
 				<li><a href="/profile/allpoem">All Poems</a></li>
@@ -163,9 +163,9 @@ function mypoemTemplate(data,user){
 			           <a href="/profile/logout">Logout</a>
 			        </div></li>
 			    </ul>
-			</div>
 			<br>
-			<br>
+			<div class="content">
+                        <div class="center">
                         <div class="container">`;
                             
     for(var i=0;i<data.length;i++){
@@ -176,15 +176,17 @@ function mypoemTemplate(data,user){
         var body=temp.body;
         var template= 
                 `
-                 <h2> ${title} </h2>
-                 <h3> Author: ${poet} , Posted On: ${dop.toDateString()} </h3>
-                 <br>
+                 <div class="poem_title"> ${title} </div>
+		 <div class="poem_desc">&#9997; Author: <a href="/poets/${poet}">${poet}</a>, &#128197; Posted On: ${dop.toDateString()}, &#128100; Posted By: <a href='/poem/user/${usr}'>${usr}</a>
+		 </div>
                  <pre>${body}</pre>
                  <hr>`;
         finalTemplate=finalTemplate.concat(template);
     }
     var endpart=
                 `</div>
+		 </div>
+		 </div>
 		<footer>
 		Copyright &copy; 2016 Souvik Banerjee
 		</footer>
@@ -207,7 +209,7 @@ app.get('/', function (req, res) {
 
 
 app.get('/poems', function (req, res) {
-  pool.query('SELECT title,body,dop,poet_name,username FROM poems inner join user_login on poems.uid=user_login.id order by dop asc', function(err,result) {
+  pool.query('SELECT title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id order by dop asc', function(err,result) {
       if(err){
           res.status(500).send(err.toString());
       }
@@ -219,12 +221,27 @@ app.get('/poems', function (req, res) {
 
 app.get('/poets/:poetname', function (req, res) {
   var poetname=req.params.poetname;
-  pool.query("SELECT title,body,dop,poet_name FROM poems inner join poet on poems.poet_id=poet.poet_id where poet_name = $1 order by dop asc",[poetname], function(err,result) {
+  pool.query("SELECT title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where poet = $1 order by dop asc",[poetname], function(err,result) {
       if(err){
           res.status(500).send(err.toString());
       }
       else if(result.rows.length===0){
           res.status(404).send('No poem found of this poet');
+      }
+      else{
+          res.send(createTemplate(result.rows));
+      }
+  });
+});
+
+app.get('/poem/user/:username', function (req, res) {
+  var uname=req.params.username;
+  pool.query("SELECT title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where username = $1 order by dop asc",[uname], function(err,result) {
+      if(err){
+          res.status(500).send(err.toString());
+      }
+      else if(result.rows.length===0){
+          res.status(404).send('No poem has been added by this user');
       }
       else{
           res.send(createTemplate(result.rows));
@@ -330,12 +347,28 @@ app.get('/register',function(req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'register.html'));
 });
 
+app.get('/contact',function(req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'contact.html'));
+});
+
 app.get('/ui/style.css', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'style.css'));
 });
 
 app.get('/ui/madi.png', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
+});
+
+app.get('/ui/firstimage.jpg', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'firstimage.jpg'));
+});
+
+app.get('/ui/secondimage.jpg', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'secondimage.jpg'));
+});
+
+app.get('/ui/thirdimage.jpg', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'thirdimage.jpg'));
 });
 
 app.get('/ui/main.js',function(req, res) {
