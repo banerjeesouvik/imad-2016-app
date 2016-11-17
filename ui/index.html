@@ -4,7 +4,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="/ui/style.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css"
-          href="https://fonts.googleapis.com/css?family=Tangerine">
+          href="https://fonts.googleapis.com/css?family=Tangerine|Quicksand">
+	<title>PoetryMela.com</title>
     </head>
     <body>
 	<header>
@@ -13,21 +14,44 @@
 	<div class="tag-line">
 	    Breathe-in Poetry, Breathe-out Experience.
 	</div>
-        <div class="center">
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="/poems">Poems</a></li>
-                <li><a href="#">Contact</a></li>
+		<li><a href="#about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
 		<li style="float:right"><a href="/register">Sign Up</a></li>
 		<li style="float:right"><a href="/signin">Sign In</a></li>
             </ul>
-            <marquee>This web-app is still under development.</marquee>
-            <img src="/ui/madi.png" class="img-medium"/>
-        </div>
+	<div class="slideshow-container">
+		<div class="mySlides fade">
+		  <img src="/ui/firstimage.jpg" style="width:100%">
+		  <div class="img_text">Image courtesy: Quotefancy</div>
+		</div>
+
+		<div class="mySlides fade">
+		  <img src="/ui/secondimage.jpg" style="width:100%">
+		  <div class="img_text">Image courtesy: Quotefancy</div>
+		</div>
+
+		<div class="mySlides fade">
+		  <img src="/ui/thirdimage.jpg" style="width:100%">
+		  <div class="img_text">Image courtesy: Quotefancy</div>
+		</div>
+	</div>
+	<div style="text-align:center">
+	  <span class="dot"></span>
+	  <span class="dot"></span>
+	  <span class="dot"></span>
+	</div>
         <br>
-        <div class="center text-big bold">
-            Hi! I am Souvik and this is my first Web-App.
+	<div class="center about" id="about">
+	<div class="about-heading">About</div>
+           Poetry is created from the soul. The language of poetry is the language of emotions. It has the power to motivate people. People often say that motivation doesn't last long. Well, neither does bathing - that's why we recommend it daily. <b>PoetryMela</b> is the place where you can find lots of poems by various indian poets which help you to refresh your mind. Not only this, <b>PoetryMela</b> is also there to ignite your passion. You can share your own poems too. Let your imagination run wild, after all, it is your canvas.
         </div>
+	<br>
+	<a class="center action-button" href="/ui/poems">Explore the beauty of poetry</a>
+	<a class="center action-button" href="/ui/signin" style='margin-top:0;background-color:#9068be;border-bottom:5px solid #633d8f'>Share poems with the world</a>
+	<footer>&copy; 2016 Souvik Banerjee</footer>
         <script type="text/javascript" src="/ui/main.js">
         </script>
     </body>
