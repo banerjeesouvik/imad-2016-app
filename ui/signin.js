@@ -18,7 +18,7 @@ login_form_submit.onclick= function(){
 			}
 		}
 	}
-	request.open('POST','http://localhost:8080/login',true);
+	request.open('POST','http://banerjeesouvik.imad.hasura-app.io/login',true);
 	request.setRequestHeader('Content-Type','application/json');
 	request.send(JSON.stringify({username: uname.value,password: pswd.value}));
 };
