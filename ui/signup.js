@@ -25,7 +25,7 @@ reg_form_submit.onclick= function(){
 			  alert('Either uername already exists or something went wrong. Please try again.');
 		}
 	}
- 	request.open('POST','http://localhost:8080/adduser',true);
+ 	request.open('POST','http://banerjeesouvik.imad.hasura-app.io/adduser',true);
 	request.setRequestHeader('Content-Type','application/json');
 	request.send(JSON.stringify({username: uname.value,password: pswd.value}));
  }
