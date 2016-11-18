@@ -271,16 +271,16 @@ app.post('/login', function (req, res) {
           res.status(500).send(err.toString());
       }
       else{
-	  if(result.rows.length===0)
-	    res.status(403).send('Invalid Username or Password');
-	  else{
-	    if(result.rows[0].password===pswd){
-     	     req.session.auth={uid: result.rows[0].id, usrnm: result.rows[0].username};
-	     res.status(200).send('loggin succesfully');
-	    }
-	    else
- 	     res.status(403).send('Invalid Username or Password');
-	  }
+    	  if(result.rows.length===0)
+    	    res.status(403).send('Invalid Username or Password');
+    	  else{
+    	    if(result.rows[0].password===pswd){
+         	     req.session.auth={uid: result.rows[0].id, usrnm: result.rows[0].username};
+    	     res.status(200).send('loggin succesfully');
+    	    }
+    	    else
+     	     res.status(403).send('Invalid Username or Password');
+    	  }
       }
   });
 });
