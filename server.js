@@ -66,8 +66,7 @@ function createTemplate(data){
         var body=temp.body;
 	var usr=temp.username;
         var template= 
-                `
-                 <div class="poem_title"> ${title} </div>
+                `<div class="poem_title"> ${title} </div>
                  <div class="poem_desc">&#9997; Author: <a href="/poets/${poet}">${poet}</a>, &#128197; Posted On: ${dop.toDateString()}, &#128100; Posted By: <a href='/poem/user/${usr}'>${usr}</a>
 		 </div>
                  <pre><div class="poems">${body}</div></pre>
@@ -133,7 +132,7 @@ function createProfileTemplate(data){
 			<script type="text/javascript" src="/ui/profile.js">
 			</script>
 		    </body>
-		</html>`
+		</html>`;
 	return template;
 }
 
