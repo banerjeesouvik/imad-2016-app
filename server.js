@@ -285,10 +285,6 @@ app.post('/login', function (req, res) {
   });
 });
 
-app.get('/profile/logout', function(req,res) {
-  delete req.session.auth;
-  res.redirect('/');
-});
 
 app.post('/addpoem', function (req, res) {
   var title=req.body.ttl;
@@ -336,6 +332,11 @@ app.get('/profile/allpoem', function (req, res) {
   });
   }else
   res.redirect('/');  
+});
+
+app.get('/profile/logout', function(req,res) {
+  delete req.session.auth;
+  res.redirect('/');
 });
 
 app.get('/signin',function(req, res) {
