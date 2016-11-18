@@ -22,7 +22,7 @@ app.use(session({
 	secret:'jaydenleone',
 	resave:true,
 	saveUninitialized:true,
-	cookie:{ maxAge: 1000*60*60*24*7}
+	cookie:{ maxAge: 1000*60*60*24*7,secure:true}
 }));
 
 var pool=new Pool(config);
