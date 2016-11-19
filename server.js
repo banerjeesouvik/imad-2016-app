@@ -310,7 +310,7 @@ app.get('/profile', function (req, res) {
 });
 
 app.get('/profile/mypoem', function (req, res) {
-  //if(req.session && req.session.auth && req.session.auth.uid){
+  if(req.session && req.session.auth && req.session.auth.uid){
   pool.query('SELECT title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where poem.usr =$1 order by dop asc',[parseInt(req.session.auth.uid)], function(err,result) {
     if(err){
         res.status(500).send(err.toString());
@@ -318,12 +318,12 @@ app.get('/profile/mypoem', function (req, res) {
     else
   	res.send(mypoemTemplate(result.rows,req.session.auth));
   });
-  /*}else
-  res.redirect('/');  */
+  }else
+  res.redirect('/');
 });
 
 app.get('/profile/allpoem', function (req, res) {
-  //if(req.session && req.session.auth && req.session.auth.uid){
+  if(req.session && req.session.auth && req.session.auth.uid){
   pool.query('SELECT title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id order by dop asc', function(err,result) {
     if(err){
         res.status(500).send(err.toString());
@@ -331,8 +331,8 @@ app.get('/profile/allpoem', function (req, res) {
     else
   	res.send(mypoemTemplate(result.rows,req.session.auth));
   });
-  /*}else
-  res.redirect('/');  */
+  }else
+  res.redirect('/');  
 });
 
 app.get('/profile/logout', function(req,res) {
