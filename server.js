@@ -173,6 +173,7 @@ function mypoemTemplate(data,user){
         var poet=temp.poet;
         var dop=temp.dop;
         var body=temp.body;
+        var usr=temp.username;
         var template= 
                 `
                  <div class="poem_title"> ${title} </div>
