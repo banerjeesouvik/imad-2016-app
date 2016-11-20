@@ -20,8 +20,8 @@ app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(session({
 	secret:'jaydenleone',
-	//resave:true,
-	//saveUninitialized:true,
+	resave:true,
+	saveUninitialized:true,
 	cookie:{ maxAge: 1000*60*60*24*7}
 }));
 
@@ -233,7 +233,7 @@ app.get('/poets/:poetname', function (req, res) {
       }
       else{
 	  if(req.session && req.session.auth && req.session.auth.uid)
-		res.send(mypoemTemplate(result.rows,req.session.auth);
+		res.send(mypoemTemplate(result.rows,req.session.auth));
 	  else
           	res.send(createTemplate(result.rows));
       }
