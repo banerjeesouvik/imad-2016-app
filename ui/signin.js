@@ -8,7 +8,7 @@ login_form_submit.onclick= function(){
  request.onreadystatechange= function(){
 		if(request.readyState===XMLHttpRequest.DONE){
 			if(request.status===200)
-			  window.location.href='http://banerjeesouvik.imad.hasura-app.io/profile';
+			  window.location.replace('http://localhost:8080/profile');
 			else if(request.status===500)
 			  alert('Something went wrong. Please try again.');
 			else if(request.status===403){
@@ -17,8 +17,14 @@ login_form_submit.onclick= function(){
 			  pswd.value='';
 			}
 		}
-	}
-	request.open('POST','http://banerjeesouvik.imad.hasura-app.io/login',true);
+ }
+ if(uname.value==='')
+ 	uname.focus();
+ else if(pswd.value==='')
+ 	pswd.focus();
+ else{
+	request.open('POST','http://localhost:8080/login',true);
 	request.setRequestHeader('Content-Type','application/json');
 	request.send(JSON.stringify({username: uname.value,password: pswd.value}));
+ }
 };
