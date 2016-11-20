@@ -97,7 +97,7 @@ li.dropdown {
     text-align: center;
     background-color: black;
     font-family: 'Tangerine', serif;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
 }
 
@@ -200,7 +200,7 @@ li.dropdown {
 .poemadd{
     border: 1px solid #d6d6d6;
     background: #f2f2f2;
-    width: 450px;
+    width: 50%;
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 10px;
@@ -213,7 +213,7 @@ li.dropdown {
 .tpu{
     border: 1px solid #d6d6d6;
     background: #f2f2f2;
-    width: 450px;
+    width: 50%;
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 10px;
@@ -310,7 +310,7 @@ img{
 }
 
 /* On smaller screens, decrease text size */
-@media only screen and (max-width: 300px) {
+@media only screen and (max-width: 350px) {
   .text {font-size: 9px}
   img{height:200px}
   .about{padding-left:5%;
@@ -319,4 +319,7 @@ img{
   .container{padding:0 25px}
   .poem_desc{font-size:15px}
   .poem_title{font-size:20px}
+  .tag-line{font-size:20px}
+  .poemadd{width:60%}
+  .tpu{width:60%}
 }
