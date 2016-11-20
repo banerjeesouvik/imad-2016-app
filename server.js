@@ -36,6 +36,7 @@ function createTemplate(data){
 			<link rel="stylesheet" type="text/css"
                               href="https://fonts.googleapis.com/css?family=Tangerine|Josefin+Sans">
                         <link href="/ui/style.css" rel="stylesheet" />
+			<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
                         <title>PoetryMela.com</title>
                      </head>
                      <body>
@@ -97,6 +98,7 @@ function createProfileTemplate(data){
 			<link href="/ui/style.css" rel="stylesheet" />
 			<link rel="stylesheet" type="text/css"
 			  href="https://fonts.googleapis.com/css?family=Tangerine">
+			<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 		    </head>
 		    <body>
 			<header>
@@ -145,6 +147,7 @@ function mypoemTemplate(data,user){
 			<link href="/ui/style.css" rel="stylesheet" />
 			<link rel="stylesheet" type="text/css"
 			  href="https://fonts.googleapis.com/css?family=Tangerine|Josefin+Sans">
+			<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 		    </head>
 		    <body>
 			<header>
@@ -229,7 +232,10 @@ app.get('/poets/:poetname', function (req, res) {
           res.status(404).send('No poem found of this poet');
       }
       else{
-          res.send(createTemplate(result.rows));
+	  if(req.session && req.session.auth && req.session.auth.uid)
+		res.send(mypoemTemplate(result.rows,req.session.auth);
+	  else
+          	res.send(createTemplate(result.rows));
       }
   });
 });
@@ -244,7 +250,10 @@ app.get('/poem/user/:username', function (req, res) {
           res.status(404).send('No poem has been added by this user');
       }
       else{
-          res.send(createTemplate(result.rows));
+	  if(req.session && req.session.auth && req.session.auth.uid)
+		res.send(mypoemTemplate(result.rows,req.session.auth));
+	  else
+	  	res.send(createTemplate(result.rows));
       }
   });
 });
@@ -358,6 +367,10 @@ app.get('/ui/style.css', function (req, res) {
 
 app.get('/ui/madi.png', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
+});
+
+app.get('/favicon.ico', function (req, res) {
+  res.sendFile(path.join(__dirname, '/', 'favicon.ico'));
 });
 
 app.get('/ui/firstimage.jpg', function (req, res) {
