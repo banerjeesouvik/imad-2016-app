@@ -5,7 +5,13 @@ reg_form_submit.onclick= function(){
  var cpswd=document.getElementById('crfnpswd');
  var uname=document.getElementById('uname');
  
- if(pswd.value != cpswd.value){
+ if(uname.value==='')
+	uname.focus();
+ else if(pswd.value==='')
+	pswd.focus();
+ else if(cpswd.value==='')
+	cpswd.focus();
+ else if(pswd.value != cpswd.value){
 	 alert("Passwords dont match. Re enter password.");
 	 cpswd.value='';
 	 pswd.value='';
