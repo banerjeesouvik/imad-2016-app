@@ -23,8 +23,17 @@ form.onclick= function(){
 			  pswd.value='';
 			}
 		}
-	}
-	request.open('POST','http://banerjeesouvik.imad.hasura-app.io/addpoem',true);
+ }
+
+ if(title.value==='')
+ 	title.focus();
+ else if(poet.value==='')
+	poet.focus();
+ else if(poem.value==='')
+ 	poem.focus();
+ else{
+	request.open('POST','http://localhost:8080/addpoem',true);
 	request.setRequestHeader('Content-Type','application/json');
 	request.send(JSON.stringify({ttl: title.value,pt: poet.value,pm: poem.value, usid: uid.value}));
+ }
 };
