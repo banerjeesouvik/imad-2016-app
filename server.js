@@ -212,7 +212,7 @@ app.get('/', function (req, res) {
 
 
 app.get('/poems', function (req, res) {
-  pool.query('SELECT title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where status=1 order by dop descsc', function(err,result) {
+  pool.query('SELECT title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where status=1 order by dop desc', function(err,result) {
       if(err){
           res.status(500).send(err.toString());
       }
@@ -320,7 +320,7 @@ app.get('/profile', function (req, res) {
 
 app.get('/profile/mypoem', function (req, res) {
   if(req.session && req.session.auth && req.session.auth.uid){
-  pool.query('SELECT title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where poem.usr =$1 order by dop asc',[parseInt(req.session.auth.uid)], function(err,result) {
+  pool.query('SELECT title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where poem.usr =$1 order by dop desc',[parseInt(req.session.auth.uid)], function(err,result) {
     if(err){
         res.status(500).send(err.toString());
     }
