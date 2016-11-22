@@ -4,9 +4,13 @@ reg_form_submit.onclick= function(){
  var pswd=document.getElementById('passwd');
  var cpswd=document.getElementById('crfnpswd');
  var uname=document.getElementById('uname');
- 
- if(uname.value==='')
-	uname.focus();
+ var ptrn=/^[-\w]{1,10}$/;
+
+ if(!uname.value.match(ptrn)){
+	alert('Only letters, digits and _ is allowed in username');
+	uname.value='';
+        uname.focus();
+ }
  else if(pswd.value==='')
 	pswd.focus();
  else if(cpswd.value==='')
