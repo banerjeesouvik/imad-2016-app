@@ -10,18 +10,13 @@ form.onclick= function(){
  request.onreadystatechange= function(){
 		if(request.readyState===XMLHttpRequest.DONE){
 			if(request.status===200){
-			  alert('You have successfully added this poem. Add more poems.');
+			  alert('You have successfully added this poem. It will be shared soon right after spam checking. Add more poems.');
 			  title.value='';
 			  poet.value='';
 			  poem.value='';
 			}
 			else if(request.status===500)
 			  alert('Something went wrong. Please try again.');
-			else if(request.status===403){
-			  alert('Invalid username/password');
-			  uname.value='';
-			  pswd.value='';
-			}
 		}
  }
 
