@@ -50,7 +50,7 @@ function createTemplate(data){
                                 <li><a href="/">Home</a></li>
                                 <li><a href="/poems">Poems</a></li>
 				<li><a href="/#about">About</a></li>
-                                <li><a href="#">Contact</a></li>
+                                <li><a href="/contact">Contact</a></li>
                 		<li style="float:right"><a href="/register">Sign Up</a></li>
                 		<li style="float:right"><a href="/signin">Sign In</a></li>
                             </ul>
