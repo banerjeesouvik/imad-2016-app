@@ -261,15 +261,20 @@ app.get('/poem/user/:username', function (req, res) {
 app.post('/adduser', function (req, res) {
   var uname=req.body.username;
   var pswd=req.body.password;
-  pswd=hash(pswd,'jaydenleone');
-  pool.query('insert into user_login(username,password) values($1,$2)',[uname,pswd], function(err,result) {
-      if(err){
-          res.status(500).send(err.toString());
-      }
-      else{
-          res.status(200).send('user successfully registered');
-      }
-  });
+  var ptrn=/^[-\w]{1,10}$/;
+  if(uname.match(ptrn)){
+	  pswd=hash(pswd,'jaydenleone');
+	  pool.query('insert into user_login(username,password) values($1,$2)',[uname,pswd], function(err,result) {
+	      if(err){
+		  res.status(500).send(err.toString());
+	      }
+	      else{
+		  res.status(200).send('user successfully registered');
+	      }
+	  });
+  }
+  else
+   res.status(500).send('Invalid username');
 });
 
 app.post('/login', function (req, res) {
