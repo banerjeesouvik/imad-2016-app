@@ -79,7 +79,7 @@ function createTemplate(data){
                  </div>
                  </div>
                  <footer>
-                    &copy; Souvik Banerjee
+                    &copy; 2016 Souvik Banerjee
                  </footer>
                  </body>
                  </html>`;
@@ -129,7 +129,7 @@ function createProfileTemplate(data){
 			</div>
 			</div>
 			<footer>
-			Copyright &copy; 2016 Souvik Banerjee
+				&copy; 2016 Souvik Banerjee
 			</footer>
 			<script type="text/javascript" src="/ui/profile.js">
 			</script>
@@ -191,7 +191,7 @@ function mypoemTemplate(data,user){
 		 </div>
 		 </div>
 		<footer>
-		Copyright &copy; 2016 Souvik Banerjee
+			&copy; 2016 Souvik Banerjee
 		</footer>
                  </body>
                  </html>`;
@@ -390,8 +390,24 @@ app.get('/ui/thirdimage.jpg', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'thirdimage.jpg'));
 });
 
+app.get('/ui/fbcontact.png', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'fbcontact.png'));
+});
+
+app.get('/ui/licontact.png', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'licontact.png'));
+});
+
+app.get('/ui/gitcontact.png', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'gitcontact.png'));
+});
+
 app.get('/ui/main.js',function(req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'main.js'));
+});
+
+app.get('/ui/contact.js',function(req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'contact.js'));
 });
 
 app.get('/ui/signin.js', function (req, res) {
