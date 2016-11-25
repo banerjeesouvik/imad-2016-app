@@ -17,3 +17,17 @@ function showSlides() {
     dots[slideIndex-1].className += " active";
     setTimeout(showSlides, 5000); // Change image every 5 seconds
 }
+
+function checksession(){
+	var sesreq=new XMLHttpRequest();
+	sesreq.onreadystatechange=function(){
+	    if(sesreq.readyState===XMLHttpRequest.DONE){
+		if(sesreq.status===200)
+		  window.location.href="http://banerjeesouvik.imad.hasura-app.io/profile";
+	    }
+	}
+	sesreq.open('GET','http://banerjeesouvik.imad.hasura-app.io/checksession',true);
+	sesreq.send(null);
+}
+
+checksession();
