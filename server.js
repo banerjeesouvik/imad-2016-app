@@ -300,6 +300,12 @@ app.post('/login', function (req, res) {
   });
 });
 
+app.get('/checksession',function(req,res) {
+  if(req.session && req.session.auth && req.session.auth.uid)
+	res.status(200).send('Logged In');
+  else
+	res.status(403).send('Not logged in');
+});
 
 app.post('/addpoem', function (req, res) {
   var title=req.body.ttl;
@@ -368,10 +374,6 @@ app.get('/contact',function(req, res) {
 
 app.get('/ui/style.css', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'style.css'));
-});
-
-app.get('/ui/madi.png', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
 });
 
 app.get('/favicon.ico', function (req, res) {
