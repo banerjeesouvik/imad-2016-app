@@ -32,3 +32,17 @@ form.onclick= function(){
 	request.send(JSON.stringify({ttl: title.value,pt: poet.value,pm: poem.value, usid: uid.value}));
  }
 };
+
+function checksession(){
+	var sesreq=new XMLHttpRequest();
+	sesreq.onreadystatechange=function(){
+	    if(sesreq.readyState===XMLHttpRequest.DONE){
+		if(sesreq.status===200)
+		  window.location.href="http://banerjeesouvik.imad.hasura-app.io/profile";
+	    }
+	}
+	sesreq.open('GET','http://banerjeesouvik.imad.hasura-app.io/checksession',true);
+	sesreq.send(null);
+}
+
+checksession();
