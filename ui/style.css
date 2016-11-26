@@ -222,6 +222,27 @@ li.dropdown {
     color:black;
 }
 
+.like_btn{
+    border-radius: 10px;
+    width:20%;
+    font-family: 'Tangerine', serif;
+    font-size: 25px;
+    font-weight:bold;
+    color: #FFF;
+    background-color: #3498DB;
+    border-bottom: 5px solid #2980B9;
+    text-decoration:none;
+    padding:10px;
+    position:relative;
+    margin:10px auto;
+    cursor:default;
+}
+
+.like_btn a{
+    color: #FFF;
+    text-decoration:none;
+}
+
 .contactlogo{
     height:40px;
     margin:auto 3px;
@@ -333,4 +354,5 @@ img{
   .tag-line{font-size:20px}
   .poemadd{width:80%}
   .tpu{width:80%}
+  .like_btn{font-size:18px}
 }
