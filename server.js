@@ -124,7 +124,7 @@ function createProfileTemplate(data){
 				<input class="tpu" type="text" name="author" placeholder="Name of the poet" id="poet"><br>
 				<textarea class="poemadd" placeholder="Enter the poem" id="poem"></textarea><br>
 				<input type="hidden" id="uid" value="${id}">
-				<input type="submit" value="Add Poem" id="poem_form">
+				<input type="submit" class= "action-button" style="background-color:#4d9900;border-bottom: 5px solid #336600;margin:10px auto" value="Add Poem" id="poem_form">
 				<hr>
 			</div>
 			</div>
