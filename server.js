@@ -71,6 +71,7 @@ function createTemplate(data){
                  <div class="poem_desc">&#9997; Author: <a href="/poets/${poet}">${poet}</a>, &#128197; Posted On: ${dop.toDateString()}, &#128100; Posted By: <a href='/poem/user/${usr}'>${usr}</a>
 		 </div>
                  <pre><div class="poems">${body}</div></pre>
+		 <div class="like_btn" title="Signin to like">${likes} Likes</div>
                  <hr>`;
         finalTemplate=finalTemplate.concat(template);
     }
