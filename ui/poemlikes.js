@@ -19,7 +19,7 @@ like.onclick=function(){
 		}
 
 	}
-	xhr.open('POST',"http://localhost:8080/like",true);
+	xhr.open('POST',"http://banerjeesouvik.imad.hasura-app.io/like",true);
 	xhr.setRequestHeader('Content-Type','application/json');
 	xhr.send(JSON.stringify({usr_id:uid.value,pm_id:pid.value}));
 };
@@ -37,7 +37,7 @@ function checklike(){
 		}
 
 	}
-	xhr.open('POST',"http://localhost:8080/check-like",true);
+	xhr.open('POST',"http://banerjeesouvik.imad.hasura-app.io/check-like",true);
 	xhr.setRequestHeader('Content-Type','application/json');
 	xhr.send(JSON.stringify({u:uid.value,p:pid.value}));
 }
