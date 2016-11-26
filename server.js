@@ -180,7 +180,7 @@ function mypoemTemplate(data,user){
         var template= 
                 `
                  <div class="poem_title"> ${title} </div>
-		 <div class="poem_desc">&#9997; Author: <a href="/poets/${poet}">${poet}</a>, &#128197; Posted On: ${dop.toDateString()}, &#128100; Posted By: <a href='/poem/user/${usr}'>${usr}</a>
+		 <div class="poem_desc">&#9997; Author: <a href="/profile/poets/${poet}">${poet}</a>, &#128197; Posted On: ${dop.toDateString()}, &#128100; Posted By: <a href='/profile/poem/user/${usr}'>${usr}</a>
 		 </div>
                  <pre class="poems">${body}</pre>
                  <hr>`;
@@ -199,6 +199,69 @@ function mypoemTemplate(data,user){
     return finalTemplate;
 }
 
+function poemlikesTemplate(data,user){
+   var temp=data[0];
+   var id=temp.id;
+   var title=temp.title;
+   var poet=temp.poet;
+   var dop=temp.dop;
+   var body=temp.body;
+   var usr=temp.username;
+   var likes=temp.tot_likes;
+   var finalTemplate=
+		`<!doctype html>
+		 <html>
+		    <head>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<link href="/ui/style.css" rel="stylesheet" />
+			<link rel="stylesheet" type="text/css"
+			  href="https://fonts.googleapis.com/css?family=Tangerine|Josefin+Sans">
+		    </head>
+		    <body>
+			<header>
+			    PoetryMela
+			</header>
+			<div class="tag-line">
+			    Breathe-in Poetry, Breathe-out Experience.
+			</div>
+			<div class="center">
+			    <ul>
+				<li><a href="/profile/mypoem">My Poems</a></li>
+				<li><a href="/profile/allpoem">All Poems</a></li>
+				<li><a href="/profile">Add Poem</a></li>
+				<li class="dropdown" style="float:right" id="uname"><a href="#" class="drop-btn">${user.usrnm}</a>
+				<div class="dropdown-content">
+			           <a href="/profile/logout">Logout</a>
+			        </div></li>
+			    </ul>
+			</div>
+			<br>
+			<br>
+			<div class="content">
+                        <div class="center">
+                        <div class="container">
+                 <div class="poem_title"> ${title} </div>
+                 <div class="poem_desc">&#9997; Author: <a href="/profile/poets/${poet}">${poet}</a>, &#128197; Posted On: ${dop.toDateString()}, &#128100; Posted By: <a href='/profile/poem/user/${usr}'>${usr}</a>
+		 </div>
+                 <pre><div class="poems">${body}</div></pre>
+		 <div style="display:inline-block">
+		 <a class="like_btn" id="lk_cnt" title="${likes} people likes this poem">${likes} Likes</a>
+		 <a id="lk_btn" class="like_btn">Like</a>
+		 <input type="hidden" id="user_id" value=${user.uid}>
+		 <input type="hidden" id="poem_id" value=${id}>
+		 </div>
+                 </div>
+		 </div>
+		 </div>
+		 <footer>
+		 Copyright &copy; 2016 Souvik Banerjee
+		 </footer>
+		 <script type="text/javascript" src="/ui/poemlikes.js">
+			</script>
+                 </body>
+                 </html>`;
+    return finalTemplate;
+}
 
 function hash(input,salt){
     var hashed=crypto.pbkdf2Sync(input,salt,1000,512,'sha512');
@@ -212,7 +275,7 @@ app.get('/', function (req, res) {
 
 
 app.get('/poems', function (req, res) {
-  pool.query('SELECT title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where status=1 order by dop desc', function(err,result) {
+  pool.query('select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id=t1.id;', function(err,result) {
       if(err){
           res.status(500).send(err.toString());
       }
@@ -224,7 +287,7 @@ app.get('/poems', function (req, res) {
 
 app.get('/poets/:poetname', function (req, res) {
   var poetname=req.params.poetname;
-  pool.query("SELECT title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where poet = $1 and status=1 order by dop desc",[poetname], function(err,result) {
+  pool.query("select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where poet=$1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id = t1.id order by t1.dop desc;",[poetname], function(err,result) {
       if(err){
           res.status(500).send(err.toString());
       }
@@ -242,7 +305,7 @@ app.get('/poets/:poetname', function (req, res) {
 
 app.get('/poem/user/:username', function (req, res) {
   var uname=req.params.username;
-  pool.query("SELECT title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where username = $1 and status=1 order by dop desc",[uname], function(err,result) {
+  pool.query("select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where username=$1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id = t1.id order by t1.dop desc;",[uname], function(err,result) {
       if(err){
           res.status(500).send(err.toString());
       }
@@ -331,7 +394,7 @@ app.get('/profile', function (req, res) {
 
 app.get('/profile/mypoem', function (req, res) {
   if(req.session && req.session.auth && req.session.auth.uid){
-  pool.query('SELECT title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where poem.usr =$1 order by dop desc',[parseInt(req.session.auth.uid)], function(err,result) {
+  pool.query('select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where poem.usr=$1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id = t1.id order by t1.dop desc;',[parseInt(req.session.auth.uid)], function(err,result) {
     if(err){
         res.status(500).send(err.toString());
     }
@@ -344,7 +407,7 @@ app.get('/profile/mypoem', function (req, res) {
 
 app.get('/profile/allpoem', function (req, res) {
   if(req.session && req.session.auth && req.session.auth.uid){
-  pool.query('SELECT title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where status=1 order by dop desc', function(err,result) {
+  pool.query('select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id=t1.id order by t1.dop desc;', function(err,result) {
     if(err){
         res.status(500).send(err.toString());
     }
@@ -353,6 +416,84 @@ app.get('/profile/allpoem', function (req, res) {
   });
   }else
   res.redirect('/');  
+});
+
+app.get('/profile/poets/:poetname', function (req, res) {
+  if(req.session && req.session.auth && req.session.auth.uid){
+  var poetname=req.params.poetname;
+  pool.query("select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where poet=$1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id = t1.id order by t1.dop desc;",[poetname], function(err,result) {
+      if(err){
+          res.status(500).send(err.toString());
+      }
+      else if(result.rows.length===0){
+          res.status(404).send('No poem found of this poet');
+      }
+      else{
+          res.send(mypoemTemplate(result.rows,req.session.auth));
+      }
+  });
+  }else
+	res.redirect('/');
+});
+
+app.get('/profile/poem/user/:username', function (req, res) {
+  if(req.session && req.session.auth && req.session.auth.uid){
+  var uname=req.params.username;
+  pool.query("select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where username=$1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id = t1.id order by t1.dop desc;",[uname], function(err,result) {
+      if(err){
+          res.status(500).send(err.toString());
+      }
+      else if(result.rows.length===0){
+          res.status(404).send('No poem has been added by this user');
+      }
+      else{
+          res.send(mypoemTemplate(result.rows,req.session.auth));
+      }
+  });
+ }else
+    res.redirect('/');
+});
+
+app.get('/profile/like/:pid',function(req,res){
+  if(req.session && req.session.auth && req.session.auth.uid){
+  var pid=req.params.pid;
+  pool.query('select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where poem.id=$1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id = t1.id;',[pid],function(err,result){
+	if(err)
+	   res.status(500).send(err.toString());
+	else
+	   res.send(poemlikesTemplate(result.rows,req.session.auth));
+ });
+ }else
+  res.redirect('/');
+});
+
+app.post('/like',function(req,res){
+  var uid=req.body.usr_id;
+  var pid=req.body.pm_id;
+  pool.query('insert into likes(user_id,poem_id) values($1,$2);',[uid,pid],function(err,result){
+	if(err)
+	   res.status(500).send(err.toString());
+	else{
+	   res.status(200).send('Thanks for liking');
+	}
+  });
+});
+
+app.post('/check-like',function(req,res){
+  var uid=req.body.u;
+  var pid=req.body.p;
+  uid=parseInt(uid);
+  pid=parseInt(pid);
+  pool.query('select poem_id from likes where user_id=$1 and poem_id=$2;',[uid,pid],function(err,result){
+	if(err)
+	   res.status(500).send(err.toString());
+	else{
+	   if(result.rows.length===0)
+	   res.status(400).send('Your like is pending');
+	   else
+	   res.status(200).send('You already liked this poem');
+	}
+  });
 });
 
 app.get('/profile/logout', function(req,res) {
@@ -422,6 +563,10 @@ app.get('/ui/signup.js', function (req, res) {
 
 app.get('/ui/profile.js',function(req,res){
   res.sendFile(path.join(__dirname,'ui','profile.js'));
+});
+
+app.get('/ui/poemlikes.js',function(req,res){
+  res.sendFile(path.join(__dirname,'ui','poemlikes.js'));
 });
 
 var port = 8080; // Use 8080 for local development because you might already have apache running on 80
