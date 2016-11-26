@@ -66,6 +66,7 @@ function createTemplate(data){
         var dop=temp.dop;
         var body=temp.body;
 	var usr=temp.username;
+	var likes=temp.tot_likes;
         var template= 
                 `<div class="poem_title"> ${title} </div>
                  <div class="poem_desc">&#9997; Author: <a href="/poets/${poet}">${poet}</a>, &#128197; Posted On: ${dop.toDateString()}, &#128100; Posted By: <a href='/poem/user/${usr}'>${usr}</a>
@@ -173,11 +174,13 @@ function mypoemTemplate(data,user){
                             
     for(var i=0;i<data.length;i++){
         var temp=data[i];
+	var id=temp.id;
         var title=temp.title;
         var poet=temp.poet;
         var dop=temp.dop;
         var body=temp.body;
         var usr=temp.username;
+	var likes=temp.tot_likes;
         var template= 
                 `
                  <div class="poem_title"> ${title} </div>
