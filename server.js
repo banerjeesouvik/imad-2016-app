@@ -187,6 +187,7 @@ function mypoemTemplate(data,user){
 		 <div class="poem_desc">&#9997; Author: <a href="/profile/poets/${poet}">${poet}</a>, &#128197; Posted On: ${dop.toDateString()}, &#128100; Posted By: <a href='/profile/poem/user/${usr}'>${usr}</a>
 		 </div>
                  <pre class="poems">${body}</pre>
+		 <div class="like_btn"><a href="/profile/like/${id}">${likes} Likes</a></div>
                  <hr>`;
         finalTemplate=finalTemplate.concat(template);
     }
