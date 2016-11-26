@@ -249,7 +249,7 @@ function poemlikesTemplate(data,user){
                  <div class="poem_desc">&#9997; Author: <a href="/profile/poets/${poet}">${poet}</a>, &#128197; Posted On: ${dop.toDateString()}, &#128100; Posted By: <a href='/profile/poem/user/${usr}'>${usr}</a>
 		 </div>
                  <pre><div class="poems">${body}</div></pre>
-		 <div style="display:inline-block">
+		 <div style="display:inline-block;margin:10px auto">
 		 <a class="like_btn" id="lk_cnt" title="${likes} people likes this poem">${likes} Likes</a>
 		 <a id="lk_btn" class="like_btn">Like</a>
 		 <input type="hidden" id="user_id" value=${user.uid}>
