@@ -37,7 +37,7 @@ function createTemplate(data){
                               href="https://fonts.googleapis.com/css?family=Tangerine|Josefin+Sans">
                         <link href="/ui/style.css" rel="stylesheet" />
 			<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
-                        <title>PoetryMela.com</title>
+                        <title>PoetryMela</title>
                      </head>
                      <body>
                     	<header>
@@ -101,6 +101,7 @@ function createProfileTemplate(data){
 			<link rel="stylesheet" type="text/css"
 			  href="https://fonts.googleapis.com/css?family=Tangerine">
 			<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+			<title>PoetryMela</title>
 		    </head>
 		    <body>
 			<header>
@@ -150,6 +151,7 @@ function mypoemTemplate(data,user){
 			<link rel="stylesheet" type="text/css"
 			  href="https://fonts.googleapis.com/css?family=Tangerine|Josefin+Sans">
 			<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+			<title>PoetryMela</title>
 		    </head>
 		    <body>
 			<header>
@@ -221,6 +223,7 @@ function poemlikesTemplate(data,user){
 			<link href="/ui/style.css" rel="stylesheet" />
 			<link rel="stylesheet" type="text/css"
 			  href="https://fonts.googleapis.com/css?family=Tangerine|Josefin+Sans">
+			<title>PoetryMela</title>
 		    </head>
 		    <body>
 			<header>
