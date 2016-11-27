@@ -280,7 +280,7 @@ app.get('/', function (req, res) {
 
 
 app.get('/poems', function (req, res) {
-  pool.query('select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id=t1.id;', function(err,result) {
+  pool.query('select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where status=1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id=t1.id;', function(err,result) {
       if(err){
           res.status(500).send(err.toString());
       }
@@ -292,7 +292,7 @@ app.get('/poems', function (req, res) {
 
 app.get('/poets/:poetname', function (req, res) {
   var poetname=req.params.poetname;
-  pool.query("select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where poet=$1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id = t1.id order by t1.dop desc;",[poetname], function(err,result) {
+  pool.query("select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where poet=$1 and status=1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id = t1.id order by t1.dop desc;",[poetname], function(err,result) {
       if(err){
           res.status(500).send(err.toString());
       }
@@ -310,7 +310,7 @@ app.get('/poets/:poetname', function (req, res) {
 
 app.get('/poem/user/:username', function (req, res) {
   var uname=req.params.username;
-  pool.query("select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where username=$1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id = t1.id order by t1.dop desc;",[uname], function(err,result) {
+  pool.query("select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where username=$1 and status=1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id = t1.id order by t1.dop desc;",[uname], function(err,result) {
       if(err){
           res.status(500).send(err.toString());
       }
@@ -399,7 +399,7 @@ app.get('/profile', function (req, res) {
 
 app.get('/profile/mypoem', function (req, res) {
   if(req.session && req.session.auth && req.session.auth.uid){
-  pool.query('select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where poem.usr=$1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id = t1.id order by t1.dop desc;',[parseInt(req.session.auth.uid)], function(err,result) {
+  pool.query('select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where poem.usr=$1 and status=1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id = t1.id order by t1.dop desc;',[parseInt(req.session.auth.uid)], function(err,result) {
     if(err){
         res.status(500).send(err.toString());
     }
@@ -412,7 +412,7 @@ app.get('/profile/mypoem', function (req, res) {
 
 app.get('/profile/allpoem', function (req, res) {
   if(req.session && req.session.auth && req.session.auth.uid){
-  pool.query('select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id=t1.id order by t1.dop desc;', function(err,result) {
+  pool.query('select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where status=1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id=t1.id order by t1.dop desc;', function(err,result) {
     if(err){
         res.status(500).send(err.toString());
     }
@@ -426,7 +426,7 @@ app.get('/profile/allpoem', function (req, res) {
 app.get('/profile/poets/:poetname', function (req, res) {
   if(req.session && req.session.auth && req.session.auth.uid){
   var poetname=req.params.poetname;
-  pool.query("select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where poet=$1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id = t1.id order by t1.dop desc;",[poetname], function(err,result) {
+  pool.query("select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where poet=$1 and status=1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id = t1.id order by t1.dop desc;",[poetname], function(err,result) {
       if(err){
           res.status(500).send(err.toString());
       }
@@ -444,7 +444,7 @@ app.get('/profile/poets/:poetname', function (req, res) {
 app.get('/profile/poem/user/:username', function (req, res) {
   if(req.session && req.session.auth && req.session.auth.uid){
   var uname=req.params.username;
-  pool.query("select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where username=$1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id = t1.id order by t1.dop desc;",[uname], function(err,result) {
+  pool.query("select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where username=$1 and status=1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id = t1.id order by t1.dop desc;",[uname], function(err,result) {
       if(err){
           res.status(500).send(err.toString());
       }
@@ -462,7 +462,7 @@ app.get('/profile/poem/user/:username', function (req, res) {
 app.get('/profile/like/:pid',function(req,res){
   if(req.session && req.session.auth && req.session.auth.uid){
   var pid=req.params.pid;
-  pool.query('select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where poem.id=$1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id = t1.id;',[pid],function(err,result){
+  pool.query('select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where poem.id=$1 and status=1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id = t1.id;',[pid],function(err,result){
 	if(err)
 	   res.status(500).send(err.toString());
 	else
