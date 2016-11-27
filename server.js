@@ -280,7 +280,7 @@ app.get('/', function (req, res) {
 
 
 app.get('/poems', function (req, res) {
-  pool.query('select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where status=1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id=t1.id;', function(err,result) {
+  pool.query('select t1.*,coalesce(p_likes.likes,0) tot_likes from (SELECT poem.id,title,body,dop,poet,username FROM poem inner join user_login on poem.usr=user_login.id where status=1) t1 left join( select poem_id,count(*) likes from likes group by poem_id) p_likes on p_likes.poem_id=t1.id order by t1.dop desc;', function(err,result) {
       if(err){
           res.status(500).send(err.toString());
       }
