@@ -54,6 +54,7 @@ function createTemplate(data){
                 		<li style="float:right"><a href="/register">Sign Up</a></li>
                 		<li style="float:right"><a href="/signin">Sign In</a></li>
                             </ul>
+                	<div id="snow"></div>
                         <div class="content">
                         <div class="center">
                         <br>
