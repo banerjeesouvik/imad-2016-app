@@ -30,7 +30,7 @@ header{
 	background-image: url('http://www.wearewebstars.dk/codepen/img/s1.png'), url('http://www.wearewebstars.dk/codepen/img//s2.png'), url('http://www.wearewebstars.dk/codepen/img//s3.png');
 	height: 100%;
 	left: 0;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	width: 100%;
 	z-index:-1;
